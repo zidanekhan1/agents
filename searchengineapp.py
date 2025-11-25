@@ -6,7 +6,7 @@ from langchain_classic.agents import initialize_agent,AgentType
 from langchain_classic.callbacks import StreamlitCallbackHandler
 import os
 from dotenv import load_dotenv
-
+load_dotenv()
 
 arxiv_wrapper = ArxivAPIWrapper(top_k_results=1,doc_content_chars_max=500)
 arxiv=ArxivQueryRun(api_wrapper=arxiv_wrapper)
@@ -43,3 +43,4 @@ if prompt:=st.chat_input(placeholder="Ask Anything"):
         st.session_state.messages.append({"role":"assistant","content":response})
 
         st.write(response)
+
