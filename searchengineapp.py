@@ -32,7 +32,10 @@ if prompt:=st.chat_input(placeholder="Ask Anything"):
     st.session_state.messages.append({"role":"user","content":prompt})
     st.chat_message("user").write(prompt)
 
-    llm = ChatGroq(model="llama-3.3-70b-versatile")
+    llm = ChatGroq(
+    model="llama-3.3-70b-versatile",
+    api_key=api_key
+)
     tools=[arxiv,wiki,search]
 
     search_agent=initialize_agent(tools,llm,agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,handling_parsing_errors=True)
@@ -43,4 +46,5 @@ if prompt:=st.chat_input(placeholder="Ask Anything"):
         st.session_state.messages.append({"role":"assistant","content":response})
 
         st.write(response)
+
 
