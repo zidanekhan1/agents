@@ -17,7 +17,7 @@ wiki = WikipediaQueryRun(api_wrapper=wiki_wrapper)
 search = DuckDuckGoSearchRun(name='Search')
 
 st.title("chat with search app")
-st.sidebar.title("wohi jo tumhari kabhi lagti nahi")
+st.sidebar.title("Settings")
 api_key = st.sidebar.text_input("Enter your api key : ",type="password")
 
 if "messages" not in st.session_state:
@@ -28,7 +28,7 @@ if "messages" not in st.session_state:
 for message in st.session_state.messages:
     st.chat_message(message["role"]).write(message['content'])
 
-if prompt:=st.chat_input(placeholder="laude kuch likh"):
+if prompt:=st.chat_input(placeholder="Ask Anything"):
     st.session_state.messages.append({"role":"user","content":prompt})
     st.chat_message("user").write(prompt)
 
@@ -41,4 +41,5 @@ if prompt:=st.chat_input(placeholder="laude kuch likh"):
         st_cb = StreamlitCallbackHandler(st.container(),expand_new_thoughts=False)
         response=search_agent.run(st.session_state.messages,callbacks=[st_cb])
         st.session_state.messages.append({"role":"assistant","content":response})
+
         st.write(response)
